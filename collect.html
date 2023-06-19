@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Database Form </title>
+</head>
+
+
+<link rel="stylesheet" href="style.css">
+
+<body bgcolor="lightyellow">
+    <h1><center>HTML Form</center></h1>
+    <h2>Write HTML form data to Database</h2>
+
+    <form name=form3 method="POST" action="https://storm.cis.fordham.edu/~kyagar/collect.php" onSubmit='return validate()'>
+
+<fieldset style="width:580px; height:310px; border-color:gold">
+<legend>Enter Fields Below</legend>
+
+
+
+<table> 
+<tr>
+<br>
+<td><label for="fullname"> <b>Full Name</b> </label> 
+<td><input type=text name=fullname id=fullname size=40 class=input>
+<tr>
+<td><label for="addr"> <b>Enter Address </b> </label>
+<td><textarea name=address id=addr rows=1 cols=40 class=input>
+</textarea>
+<tr>
+<td><b>Enter Gender </b>
+<td><input type=radio name=sex id=male   value='M'><label for="male">   Male </label> 
+    <input type=radio name=sex id=female value='F'><label for="female"> Female </label> 
+    <input type=radio name=sex id=other  value='O'><label for="other">  Other </label>
+<tr>
+<td><b>Enter Status </b>
+<td><input type="checkbox" name="status[]" id="sgl" value="single">     Single
+	<input type="checkbox" name="status[]" id="mrd" value="married">    Married
+	<input type="checkbox" name="status[]" id="cmp" value="complicated">  It's complicated
+<tr>
+<td><b>Enter Age </b>
+<td><input type=number name=age id=age><label for="age"></label>
+<tr>
+<td><label for="slctSingle"><b> Education  </label>
+<td><select name=education id=slctSingle class=input>
+            <option id=none value='0'     >--Choose Your Level--</option> 
+            <option id=K12  value='K-12'  >      K-12           </option>
+            <option id=HS   value='HS'    >      high school    </option> 
+            <option id=BS   value='BS/BA' >      bachelor degree</option>
+            <option id=MS   value='MS/MA' >      masters degree </option>  
+            <option id=PHD  value='DR/PHD'>      doctor/PhD     </option> 
+    </select>
+<tr>
+<td><label for="slctMulti"><b> Actual Hobbies  </label>
+<td><select name=hobby id=slctMulti size=3 multiple class=input>
+            <option id=cri name=hobby[] value='crime' > fighting crime</option> 
+            <option id=mdia name=hobby[] value='media' > television/movies</option>
+            <option id=art  name=hobby[] value='art'   > art and theatre  </option>
+            <option id=sprt name=hobby[] value='sport' > sports           </option>
+            <option id=trvl name=hobby[] value='travel'> traveling        </option>
+            <option id=shop name=hobby[] value='shop'  > shopping         </option>
+            <option id=slp  name=hobby[] value='sleep' > sleeping         </option>
+            <option id=musc name=hobby[] value='music' > music    </option>
+    </select>
+<tr>
+<td><input type=submit value='       Go        '>
+<td><input type=reset  value='Reset'>  
+<tr>
+<td>
+<input type="hidden"  name="_EMAIL"  value="kyagar@fordham.edu"        >
+<input type="hidden"  name="_FILE"   value="/home/students/kyagar/submissions" >  
+</table>
+</fieldset>
+</form>
+
+<script>
+function validate() {
+
+     if (document.form3.fullname.value.trim() == "")                //validating the name   
+     {
+        alert('What is your name?');
+        return(false);
+     }
+
+    if (document.getElementById('addr').value == "")                //--- validate address           
+    {
+        alert('No seriously, give me your address');
+        return(false);
+    }
+
+    if (document.form3.sex[0].checked == false &&                   //--- validate sex 
+        document.form3.sex[1].checked == false &&
+        document.form3.sex[2].checked == false   )
+    {
+        alert("Enter your gender");
+        return(false);
+    }
+    
+    if (!document.getElementById('sgl').checked &&                  //--- validate status 
+        !document.getElementById('mrd').checked &&
+        !document.getElementById('cmp').checked    ) 
+    {
+        alert("Hey man, I know it's a little embarrasing but please tell me your love life");
+        return(false);
+    }
+
+    if (document.getElementById('age').value == "")                //--- validate age           
+    {
+        alert('I cant check your age so you can lie');
+        return(false);
+    }
+
+    if (document.getElementById('slctSingle').selectedIndex == 0)   //--- nothing was chosen (single select)
+    {
+        alert('What level of school did you complete?');
+        return(false);
+    }
+
+    enteredHobbies = "";                                          //--- validate hobby (better)
+    for (i = 0; i < document.form3.hobby.length; i++)
+    {
+        if (document.getElementById('slctMulti').options[i].selected == true)
+            enteredHobbies += document.getElementById('slctMulti').options[i].value + " ";
+    }
+    if (enteredHobbies == "")
+    { 
+        alert('You have to like one of these!');
+        return(false);
+    }
+
+
+    return(true);
+}
+</script>
+
+</body>
+</html>
+
